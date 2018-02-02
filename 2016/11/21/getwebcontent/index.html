@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="代码的作用是抓取页面“http://top.chinaz.com/diqu/index_ZheJiang_2.html-100.html”页面中列出来的浙江网站的名称+url；但是过程中遇见了几个难点：正则匹配、url的分解重组、异常处理以及最后保存到excel中内容被覆盖的问题等。  在使用正则的过程中，难点是正则规则的写法。比如：怎么使用”非贪婪”模式，怎么进行循环遍历。 在url重组的时候，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GetWebContent">
+<meta property="og:url" content="http://yoursite.com/2016/11/21/getwebcontent/index.html">
+<meta property="og:site_name" content="Limbo">
+<meta property="og:description" content="代码的作用是抓取页面“http://top.chinaz.com/diqu/index_ZheJiang_2.html-100.html”页面中列出来的浙江网站的名称+url；但是过程中遇见了几个难点：正则匹配、url的分解重组、异常处理以及最后保存到excel中内容被覆盖的问题等。  在使用正则的过程中，难点是正则规则的写法。比如：怎么使用”非贪婪”模式，怎么进行循环遍历。 在url重组的时候，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/upload_image/getweb2.jpg">
+<meta property="og:image" content="http://yoursite.com/upload_image/getweb.jpg">
+<meta property="og:updated_time" content="2018-02-02T02:59:21.964Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GetWebContent">
+<meta name="twitter:description" content="代码的作用是抓取页面“http://top.chinaz.com/diqu/index_ZheJiang_2.html-100.html”页面中列出来的浙江网站的名称+url；但是过程中遇见了几个难点：正则匹配、url的分解重组、异常处理以及最后保存到excel中内容被覆盖的问题等。  在使用正则的过程中，难点是正则规则的写法。比如：怎么使用”非贪婪”模式，怎么进行循环遍历。 在url重组的时候，">
+<meta name="twitter:image" content="http://yoursite.com/upload_image/getweb2.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/11/21/getwebcontent/"/>
+
+
+
+
+
+  <title>GetWebContent | Limbo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Limbo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">朝闻道，夕可死</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/Lianjie/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            书签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/21/getwebcontent/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhifeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Limbo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GetWebContent</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-21T14:19:19+08:00">
+                2016-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>代码的作用是抓取页面“<a href="http://top.chinaz.com/diqu/index_ZheJiang_2.html-100.html”页面中列出来的浙江网站的名称+url；" target="_blank" rel="noopener">http://top.chinaz.com/diqu/index_ZheJiang_2.html-100.html”页面中列出来的浙江网站的名称+url；</a><br>但是过程中遇见了几个难点：正则匹配、url的分解重组、异常处理以及最后保存到excel中内容被覆盖的问题等。</p>
+<ol>
+<li>在使用正则的过程中，难点是正则规则的写法。比如：怎么使用”非贪婪”模式，怎么进行循环遍历。</li>
+<li>在url重组的时候，要使用type()查看类型，保证+号前后都是字符串，或整型。</li>
+<li>异常处理语句：(try——except语句)。</li>
+<li>excel保存内容，先把获取到的数据保存到列表当中，最后把整个列表一次性保存到excel中，这样就可以保证内容不被覆盖。<br><img src="\upload_image\getweb2.jpg" alt="Alt text"><h2 id="代码块："><a href="#代码块：" class="headerlink" title="代码块："></a>代码块：</h2><h3 id="python–re模块"><a href="#python–re模块" class="headerlink" title="python–re模块"></a>python–re模块</h3> 这个模块提供了与 Perl 相似l的正则表达式匹配操作。Unicode字符串也同样适用<br> 正则表达式使用反斜杠” \ “来代表特殊形式或用作转义字符，这里跟Python的语法冲突，因此，Python用” \\ “表示正则表达式中的” \ “，因为正则表达式中如果要匹配” \ “，需要用\来转义，变成” \ “，而Python语法中又需要对字符串中每一个\进行转义，所以就变成了” \\ “<br> 为了使正则表达式具有更好的可读性，Python特别设计了原始字符串(raw string)，需要提醒你的是，在写文件路径的时候就不要使用raw string了，这里存在陷阱。raw string就是用’r’作为字符串的前缀，如 r”\n”：表示两个字符”\”和”n”，而不是换行符了。Python中写正则表达式时推荐使用这种形式<br> 绝大多数正则表达式操作与模块级函数或RegexObject方法一样都能达到同样的目的。而且不需要你一开始就编译正则表达式对象，但是不能使用一些实用的微调参数<br>more info: <a href="http://www.cnblogs.com/PythonHome/archive/2011/11/19/2255459.html" target="_blank" rel="noopener">re模块简介</a></li>
+</ol>
+<h3 id="python–xlwt-xlrd"><a href="#python–xlwt-xlrd" class="headerlink" title="python–xlwt/xlrd"></a>python–xlwt/xlrd</h3><p>python中的xlwt是创建一个excel，写入新的内容。<br>python中的xlrd是修改已存在的excel中的内容。<br>more info: <a href="http://www.cnblogs.com/MrLJC/p/3715783.html" target="_blank" rel="noopener">xlwt/xlrd简介</a></p>
+<p><img src="\upload_image\getweb.jpg" alt="Alt text"><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"></span><br><span class="line">import urllib2</span><br><span class="line">import re</span><br><span class="line">import xlwt</span><br><span class="line"></span><br><span class="line">num = 2</span><br><span class="line">workbook=xlwt.Workbook()		<span class="comment">#创建一个workbook对象</span></span><br><span class="line">sheet1=workbook.add_sheet(<span class="string">'sheet1'</span>,cell_overwrite_ok=True)	<span class="comment">#创建一个sheet对象</span></span><br><span class="line">name_list=[]</span><br><span class="line">url_list=[]</span><br><span class="line"><span class="keyword">while</span>(num&lt;=100):</span><br><span class="line">	userMainUrl = <span class="string">"http://top.chinaz.com/diqu/index_ZheJiang_"</span> + str(num) + <span class="string">".html"</span>		<span class="comment">#对url进行拆分，进行循环</span></span><br><span class="line">	req = urllib2.Request(userMainUrl)</span><br><span class="line">	resp = urllib2.urlopen(req)</span><br><span class="line">	respHtml = resp.read()			<span class="comment">#把网页源代码提取出来赋值给respHtml</span></span><br><span class="line">	num = num+1</span><br><span class="line">	<span class="comment">#print "respHtml=", respHtml     </span></span><br><span class="line"></span><br><span class="line">	<span class="comment">#class="pr10 fz14"&gt;三国杀官方网站&lt;/a&gt;    需要匹配的名字</span></span><br><span class="line">	<span class="comment">#&lt;/a&gt;&lt;span class="col-gray"&gt;sanguosha.com&lt;/span&gt;   需要匹配的url</span></span><br><span class="line">	Url = <span class="string">'&lt;/a&gt;&lt;span\s+?class="col-gray"&gt;(?P&lt;gray&gt;.+?)&lt;/span&gt;'</span></span><br><span class="line">	Name = <span class="string">'\s+?class="pr10 fz14"&gt;(?P&lt;pr10&gt;.+?)&lt;/a&gt;'</span>	<span class="comment">#正则表达式，表示匹配的规则"\s+?、(?P&lt;&gt;.+?)"</span></span><br><span class="line">	def find(value):</span><br><span class="line">		comp1 = re.compile(value)			 <span class="comment">#将正则表达式编译，提高运行速度。</span></span><br><span class="line">		foundNm = comp1.findall(respHtml)	<span class="comment">#表示在respHtml中进行匹配</span></span><br><span class="line">		<span class="built_in">return</span> foundNm         <span class="comment">#findall会返回一个列表，列表中的对象是字符串或乱码。</span></span><br><span class="line">		<span class="comment"># for message in foundNm:				#用for循环把列表的内容读取出来</span></span><br><span class="line">			<span class="comment"># print message.decode('utf-8')    #.decode('utf-8')</span></span><br><span class="line"></span><br><span class="line">	lsn = find(Name)</span><br><span class="line">	lsu = find(Url)</span><br><span class="line"></span><br><span class="line">	name_list+=lsn			<span class="comment">#先把获取到的数据保存到列表当中，最后把整个列表一次性保存到excel中</span></span><br><span class="line">	url_list+=lsu</span><br><span class="line"></span><br><span class="line">count=len(name_list)</span><br><span class="line">i=0</span><br><span class="line"><span class="keyword">while</span>(i &lt; count):</span><br><span class="line">	n=name_list[i]</span><br><span class="line">	u=url_list[i]</span><br><span class="line">	i+=1</span><br><span class="line">	try:</span><br><span class="line">		<span class="built_in">print</span> n.decode(<span class="string">"utf-8"</span>), u</span><br><span class="line">	except UnicodeEncodeError:			<span class="comment">#try...except语句抓取报错，避免出现一个错误导致后面的都不执行了。</span></span><br><span class="line">		<span class="built_in">print</span> n, u</span><br><span class="line">	sheet1.write(i,0,n.decode(<span class="string">"utf-8"</span>))</span><br><span class="line">	sheet1.write(i,1,u)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	<span class="built_in">print</span> <span class="string">'loading......'</span></span><br><span class="line"></span><br><span class="line">workbook.save(<span class="string">'xxx.xls'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">'all the pages were done!!!'</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="sign-bman"><a href="#sign-bman" class="headerlink" title="sign: bman"></a>sign: bman</h3>
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢浏览-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/15/伪基站/" rel="next" title="Pseudo Base Station">
+                <i class="fa fa-chevron-left"></i> Pseudo Base Station
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/23/python-爆破工具/" rel="prev" title="python-爆破工具">
+                python-爆破工具 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="zhifeng" />
+          <p class="site-author-name" itemprop="name">zhifeng</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/BBB-man" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/p/1005056301926780/home?from=page_100505&mod=TAB&is_all=1#place" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://thief.one/" title="nmask's_blog" target="_blank">nmask's_blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.baidu.com/" title="baidu" target="_blank">baidu</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码块："><span class="nav-number">1.</span> <span class="nav-text">代码块：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#python–re模块"><span class="nav-number">1.1.</span> <span class="nav-text">python–re模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python–xlwt-xlrd"><span class="nav-number">1.2.</span> <span class="nav-text">python–xlwt/xlrd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sign-bman"><span class="nav-number">1.3.</span> <span class="nav-text">sign: bman</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-desktop"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhifeng</span>
+</div>
+
+<!--
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+-->
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

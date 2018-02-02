@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="RSA加密算法是一种非对称加密算法。在公开密钥加密和电子商业中RSA被广泛使用。RSA是1977年由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）一起提出的。当时他们三人都在麻省理工学院工作。RSA就是他们三人姓氏开头字母拼在一起组成的。 1973年，在英国政府通讯总部工作的数学家克利福德·柯克斯（Clifford">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RSA加密算法">
+<meta property="og:url" content="http://yoursite.com/2016/10/11/RSA加密算法/index.html">
+<meta property="og:site_name" content="Limbo">
+<meta property="og:description" content="RSA加密算法是一种非对称加密算法。在公开密钥加密和电子商业中RSA被广泛使用。RSA是1977年由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）一起提出的。当时他们三人都在麻省理工学院工作。RSA就是他们三人姓氏开头字母拼在一起组成的。 1973年，在英国政府通讯总部工作的数学家克利福德·柯克斯（Clifford">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/upload_image/rsa.jpg">
+<meta property="og:image" content="http://yoursite.com/upload_image/oula.jpg">
+<meta property="og:image" content="http://yoursite.com/upload_image/mofan.jpg">
+<meta property="og:updated_time" content="2018-02-02T02:59:21.964Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RSA加密算法">
+<meta name="twitter:description" content="RSA加密算法是一种非对称加密算法。在公开密钥加密和电子商业中RSA被广泛使用。RSA是1977年由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）一起提出的。当时他们三人都在麻省理工学院工作。RSA就是他们三人姓氏开头字母拼在一起组成的。 1973年，在英国政府通讯总部工作的数学家克利福德·柯克斯（Clifford">
+<meta name="twitter:image" content="http://yoursite.com/upload_image/rsa.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/10/11/RSA加密算法/"/>
+
+
+
+
+
+  <title>RSA加密算法 | Limbo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Limbo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">朝闻道，夕可死</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/Lianjie/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            书签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/11/RSA加密算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhifeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Limbo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RSA加密算法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-11T16:54:44+08:00">
+                2016-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>RSA加密算法是一种非对称加密算法。在公开密钥加密和电子商业中RSA被广泛使用。<br>RSA是1977年由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和<br>伦纳德·阿德曼（Leonard Adleman）一起提出的。当时他们三人都在麻省理工学院工作。RSA就是他们三人姓氏开头字母拼在一起组成的。</p>
+<p>1973年，在英国政府通讯总部工作的数学家克利福德·柯克斯（Clifford Cocks）在一个内部文件中提出了一个相同的算法，但他的发现被列入机密，一直到1997年才被发表。</p>
+<p>对极大整数做因数分解的难度决定了RSA算法的可靠性。即对一极大整数做因数分解愈困难，RSA算法愈可靠。假如有人找到一种快速因数分解的算法的话，那么用RSA加密的信息的可靠性就肯定会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的RSA钥匙才可能被强力方式解破。到2016年为止，世界上还没有任何可靠的攻击RSA算法的方式。只要其钥匙的长度足够长，用RSA加密的信息实际上是不能被解破的。<br><img src="/upload_image/rsa.jpg" alt="RSA"></p>
+<h2 id="RSA算法"><a href="#RSA算法" class="headerlink" title="RSA算法"></a>RSA算法</h2><h3 id="密钥："><a href="#密钥：" class="headerlink" title="密钥："></a>密钥：</h3><p>加密和解密使用的规则（简称“密钥”）</p>
+<h3 id="对称加密算法-Symmetric-key-algorithm"><a href="#对称加密算法-Symmetric-key-algorithm" class="headerlink" title="对称加密算法(Symmetric-key algorithm):"></a>对称加密算法(Symmetric-key algorithm):</h3><pre><code>加密和解密使用同一密钥（规则）的算法。
+（1）甲方选择某一种加密规则，对信息进行加密；
+（2）乙方使用同一种规则，对信息进行解密。
+</code></pre><h3 id="非对称加密算法："><a href="#非对称加密算法：" class="headerlink" title="非对称加密算法："></a>非对称加密算法：</h3><pre><code>加密和解密不使用同一规则，只要两种规则之间存在某种对应关系即可，可避免直接传递密钥。以&quot;公钥&quot;及&quot;私钥&quot;形成对应关系。公钥公开，私钥保密。
+（1）乙方生成两把密钥（公钥和私钥）。公钥是公开的，私钥则保密。
+（2）甲方获取乙方的公钥，然后用它对信息加密。
+（3）乙方得到加密后的信息，用私钥解密。
+</code></pre><h2 id="four-Mathematic-Theory"><a href="#four-Mathematic-Theory" class="headerlink" title="four Mathematic Theory"></a>four Mathematic Theory</h2><p>They can help you understand RSA much better. RSA is based on these four knowledge.</p>
+<h3 id="1-coprime-互质关系"><a href="#1-coprime-互质关系" class="headerlink" title="1.coprime(互质关系)"></a>1.coprime(互质关系)</h3><p>如果两个正整数，除了1以外，没有其他公因子，我们就称这两个数是互质关系。比如，15和32没有公因子，所以它们是互质关系。这说明，不是质数也可以构成互质关系。<br>　　1. 任意两个质数构成互质关系，比如13和61。<br>　　2. 一个数是质数，另一个数只要不是前者的倍数，两者就构成互质关系，比如3和10。<br>　　3. 如果两个数之中，较大的那个数是质数，则两者构成互质关系，比如97和57。<br>　　4. 1和任意一个自然数是都是互质关系，比如1和99。<br>　　5. p是大于1的整数，则p和p-1构成互质关系，比如57和56。<br>　　6. p是大于1的奇数，则p和p-2构成互质关系，比如17和15。</p>
+<h3 id="2-欧拉函数"><a href="#2-欧拉函数" class="headerlink" title="2.欧拉函数"></a>2.欧拉函数</h3><p><img src="/upload_image/oula.jpg" alt="欧拉"><br>欧拉定理是RSA算法的核心。理解了这个定理，就可以理解RSA。<br><a href="http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html" target="_blank" rel="noopener">detail</a></p>
+<h3 id="3-模反元素"><a href="#3-模反元素" class="headerlink" title="3.模反元素"></a>3.模反元素</h3><p><img src="/upload_image/mofan.jpg" alt="mofan"></p>
+<h3 id="4-二进制与十进制转换算法"><a href="#4-二进制与十进制转换算法" class="headerlink" title="4.二进制与十进制转换算法"></a>4.二进制与十进制转换算法</h3><pre><code>十进制转二进制：
+    用2辗转相除至结果为1 
+    将余数和最后的1从下向上倒序写 就是结果
+    例如302
+    302/2 = 151 余0 
+    151/2 = 75 余1 
+    75/2 = 37 余1 
+    37/2 = 18 余1 
+    18/2 = 9 余0 
+    9/2 = 4 余1 
+    4/2 = 2 余0 
+    2/2 = 1 余0 
+    故二进制为100101110 
+
+二进制转十进制:
+    从最后一位开始算，依次列为第0、1、2...位
+    第n位的数（0或1）乘以2的n次方
+    得到的结果相加就是答案
+    例如:01101011.转十进制: 
+    第0位:1乘2的0次方=1 
+    1乘2的1次方=2 
+    0乘2的2次方＝0 
+    1乘2的3次方＝8  
+    0乘2的4次方＝0 
+    1乘2的5次方＝32 
+    1乘2的6次方＝64 
+    0乘2的7次方＝0 
+    然后：1＋2＋0 
+     ＋8＋0＋32＋64＋0＝107． 
+    二进制01101011＝十进制107．
+</code></pre><h2 id="Generate-key-生成密钥"><a href="#Generate-key-生成密钥" class="headerlink" title="Generate key(生成密钥)"></a>Generate key(生成密钥)</h2><p>eg.假设爱丽丝要与鲍勃进行加密通信，她该怎么生成公钥和私钥呢？</p>
+<h3 id="step1：随机选择两个不相等的质数p和q。"><a href="#step1：随机选择两个不相等的质数p和q。" class="headerlink" title="step1：随机选择两个不相等的质数p和q。"></a>step1：随机选择两个不相等的质数p和q。</h3><p>p=61 &amp; q=53(实际应用中，这两个质数越大，就越难破解。)</p>
+<h3 id="step2-计算p和q的乘积n"><a href="#step2-计算p和q的乘积n" class="headerlink" title="step2:计算p和q的乘积n"></a>step2:计算p和q的乘积n</h3><pre><code>n = 61×53 = 3233
+</code></pre><p>n的长度就是密钥长度。3233写成二进制是110010100001，一共有12位，所以这个密钥就是12位。实际应用中，RSA密钥一般是1024位，重要场合则为2048位</p>
+<h3 id="step3-计算n的欧拉函数φ-n"><a href="#step3-计算n的欧拉函数φ-n" class="headerlink" title="step3:计算n的欧拉函数φ(n)"></a>step3:计算n的欧拉函数φ(n)</h3><p>公式：<br>    φ(n) = (p-1)(q-1)<br>算出φ(3233)等于60×52，即3120。</p>
+<h3 id="step4-随机选择一个整数e，条件是1-lt-e-lt-φ-n-，且e与φ-n-互质"><a href="#step4-随机选择一个整数e，条件是1-lt-e-lt-φ-n-，且e与φ-n-互质" class="headerlink" title="step4:随机选择一个整数e，条件是1&lt; e &lt; φ(n)，且e与φ(n) 互质"></a>step4:随机选择一个整数e，条件是1&lt; e &lt; φ(n)，且e与φ(n) 互质</h3><p>爱丽丝就在1到3120之间，随机选择了17。（实际应用中，常常选择65537。）</p>
+<h3 id="step5"><a href="#step5" class="headerlink" title="step5:"></a>step5:</h3><pre><code>所谓&quot;模反元素&quot;就是指有一个整数d，可以使得ed被φ(n)除的余数为1。
+　　ed ≡ 1 (mod φ(n))
+这个式子等价于
+　　ed - 1 = kφ(n)
+于是，找到模反元素d，实质上就是对下面这个二元一次方程求解。
+　　ex + φ(n)y = 1
+已知 e=17, φ(n)=3120，
+　　17x + 3120y = 1
+这个方程可以用&quot;扩展欧几里得算法&quot;求解，此处省略具体过程。总之，爱丽丝算出一组整数解为 (x,y)=(2753,-15)，即 d=2753。
+至此所有计算完成。
+</code></pre><h3 id="step6-将n和e封装成公钥，n和d封装成私钥。"><a href="#step6-将n和e封装成公钥，n和d封装成私钥。" class="headerlink" title="step6:将n和e封装成公钥，n和d封装成私钥。"></a>step6:将n和e封装成公钥，n和d封装成私钥。</h3><p>在爱丽丝的例子中，n=3233，e=17，d=2753，所以公钥就是 (3233,17)，私钥就是（3233, 2753）。<br>实际应用中，公钥和私钥的数据都采用ASN.1格式表达（实例）。</p>
+<h3 id="step7-RSA算法的可靠性"><a href="#step7-RSA算法的可靠性" class="headerlink" title="step7:RSA算法的可靠性"></a>step7:RSA算法的可靠性</h3><p>回顾上面的密钥生成步骤，一共出现六个数字：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  　p</span><br><span class="line">　　q</span><br><span class="line">　　n</span><br><span class="line">　　φ(n)</span><br><span class="line">　　e</span><br><span class="line">　　d</span><br></pre></td></tr></table></figure></p>
+<p>这六个数字之中，公钥用到了两个（n和e），其余四个数字都是不公开的。其中最关键的是d，因为n和d组成了私钥，一旦d泄漏，就等于私钥泄漏。</p>
+<p>那么，有无可能在已知n和e的情况下，推导出d？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">　　（1）ed≡1 (mod φ(n))。只有知道e和φ(n)，才能算出d。</span><br><span class="line">　　（2）φ(n)=(p-1)(q-1)。只有知道p和q，才能算出φ(n)。</span><br><span class="line">　　（3）n=pq。只有将n因数分解，才能算出p和q。</span><br></pre></td></tr></table></figure>
+<p>结论：如果n可以被因数分解，d就可以算出，也就意味着私钥被破解。<br>大整数的因数分解，是一件非常困难的事情。目前，除了暴力破解，还没有发现别的有效方法。</p>
+<p>举例来说，你可以对3233进行因数分解（61×53），但是你没法对下面这个整数进行因数分解。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">　　12301866845301177551304949</span><br><span class="line">　　58384962720772853569595334</span><br><span class="line">　　79219732245215172640050726</span><br><span class="line">　　36575187452021997864693899</span><br><span class="line">　　56474942774063845925192557</span><br><span class="line">　　32630345373154826850791702</span><br><span class="line">　　61221429134616704292143116</span><br><span class="line">　　02221240479274737794080665</span><br><span class="line">　　351419597459856902143413</span><br><span class="line">它等于这样两个质数的乘积</span><br><span class="line">　　33478071698956898786044169</span><br><span class="line">　　84821269081770479498371376</span><br><span class="line">　　85689124313889828837938780</span><br><span class="line">　　02287614711652531743087737</span><br><span class="line">　　814467999489</span><br><span class="line">　　　　×</span><br><span class="line">　　36746043666799590428244633</span><br><span class="line">　　79962795263227915816434308</span><br><span class="line">　　76426760322838157396665112</span><br><span class="line">　　79233373417143396810270092</span><br><span class="line">　　798736308917</span><br></pre></td></tr></table></figure></p>
+<p>事实上，这大概是人类已经分解的最大整数（232个十进制位，768个二进制位）。比它更大的因数分解，还没有被报道过，因此目前被破解的最长RSA密钥就是768位。</p>
+<h3 id="step8-加密和解密"><a href="#step8-加密和解密" class="headerlink" title="step8:加密和解密"></a>step8:加密和解密</h3><pre><code>有了公钥和密钥，就能进行加密和解密了。
+（1）加密要用公钥 (n,e)
+假设鲍勃要向爱丽丝发送加密信息m，他就要用爱丽丝的公钥 (n,e) 对m进行加密。这里需要注意，m必须是整数（字符串可以取ascii值或unicode值），且m必须小于n。
+所谓&quot;加密&quot;，就是算出下式的c：
+　　me ≡ c (mod n)
+爱丽丝的公钥是 (3233, 17)，鲍勃的m假设是65，那么可以算出下面的等式：
+　　6517 ≡ 2790 (mod 3233)
+于是，c等于2790，鲍勃就把2790发给了爱丽丝。
+（2）解密要用私钥(n,d)
+爱丽丝拿到鲍勃发来的2790以后，就用自己的私钥(3233, 2753) 进行解密。可以证明，下面的等式一定成立：
+　　cd ≡ m (mod n)
+也就是说，c的d次方除以n的余数为m。现在，c等于2790，私钥是(3233, 2753)，那么，爱丽丝算出
+　　27902753 ≡ 65 (mod 3233)
+因此，爱丽丝知道了鲍勃加密前的原文就是65。
+至此，&quot;加密--解密&quot;的整个过程全部完成。
+我们可以看到，如果不知道d，就没有办法从c求出m。而前面已经说过，要知道d就必须分解n，这是极难做到的，所以RSA算法保证了通信安全。
+你可能会问，公钥(n,e) 只能加密小于n的整数m，那么如果要加密大于n的整数，该怎么办？有两种解决方法：一种是把长信息分割成若干段短消息，每段分别加密；另一种是先选择一种&quot;对称性加密算法&quot;（比如DES），用这种算法的密钥加密信息，再用RSA公钥加密DES密钥。
+</code></pre><h3 id="step9-私钥解密的证明"><a href="#step9-私钥解密的证明" class="headerlink" title="step9:私钥解密的证明"></a>step9:私钥解密的证明</h3><pre><code>最后，我们来证明，为什么用私钥解密，一定可以正确地得到m。也就是证明下面这个式子：
+　　cd ≡ m (mod n)
+因为，根据加密规则
+　　ｍe ≡ c (mod n)
+于是，c可以写成下面的形式：
+　　c = me - kn
+将c代入要我们要证明的那个解密规则：
+　　(me - kn)d ≡ m (mod n)
+它等同于求证
+　　med ≡ m (mod n)
+由于
+　　ed ≡ 1 (mod φ(n))
+所以
+　　ed = hφ(n)+1
+将ed代入：
+　　mhφ(n)+1 ≡ m (mod n)
+接下来，分成两种情况证明上面这个式子。
+（1）m与n互质。
+根据欧拉定理，此时
+　　mφ(n) ≡ 1 (mod n)
+得到
+　　(mφ(n))h × m ≡ m (mod n)
+原式得到证明。
+（2）m与n不是互质关系。
+此时，由于n等于质数p和q的乘积，所以m必然等于kp或kq。
+以 m = kp为例，考虑到这时k与q必然互质，则根据欧拉定理，下面的式子成立：
+　　(kp)q-1 ≡ 1 (mod q)
+进一步得到
+　　[(kp)q-1]h(p-1) × kp ≡ kp (mod q)
+即
+　　(kp)ed ≡ kp (mod q)
+将它改写成下面的等式
+　　(kp)ed = tq + kp
+这时t必然能被p整除，即 t=t&apos;p
+　　(kp)ed = t&apos;pq + kp
+因为 m=kp，n=pq，所以
+　　med ≡ m (mod n)
+原式得到证明。
+</code></pre><h3 id="摘录"><a href="#摘录" class="headerlink" title="摘录"></a>摘录</h3><p><a href="http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html" target="_blank" rel="noopener">more info1</a><br><a href="http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html" target="_blank" rel="noopener">more info2</a></p>
+<h3 id="sign-bman"><a href="#sign-bman" class="headerlink" title="sign:bman"></a>sign:bman</h3>
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢浏览-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/10/python-socket/" rel="next" title="python--socket">
+                <i class="fa fa-chevron-left"></i> python--socket
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/15/伪基站/" rel="prev" title="Pseudo Base Station">
+                Pseudo Base Station <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="zhifeng" />
+          <p class="site-author-name" itemprop="name">zhifeng</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/BBB-man" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/p/1005056301926780/home?from=page_100505&mod=TAB&is_all=1#place" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://thief.one/" title="nmask's_blog" target="_blank">nmask's_blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.baidu.com/" title="baidu" target="_blank">baidu</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RSA算法"><span class="nav-number">1.</span> <span class="nav-text">RSA算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#密钥："><span class="nav-number">1.1.</span> <span class="nav-text">密钥：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对称加密算法-Symmetric-key-algorithm"><span class="nav-number">1.2.</span> <span class="nav-text">对称加密算法(Symmetric-key algorithm):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非对称加密算法："><span class="nav-number">1.3.</span> <span class="nav-text">非对称加密算法：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#four-Mathematic-Theory"><span class="nav-number">2.</span> <span class="nav-text">four Mathematic Theory</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-coprime-互质关系"><span class="nav-number">2.1.</span> <span class="nav-text">1.coprime(互质关系)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-欧拉函数"><span class="nav-number">2.2.</span> <span class="nav-text">2.欧拉函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-模反元素"><span class="nav-number">2.3.</span> <span class="nav-text">3.模反元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-二进制与十进制转换算法"><span class="nav-number">2.4.</span> <span class="nav-text">4.二进制与十进制转换算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generate-key-生成密钥"><span class="nav-number">3.</span> <span class="nav-text">Generate key(生成密钥)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#step1：随机选择两个不相等的质数p和q。"><span class="nav-number">3.1.</span> <span class="nav-text">step1：随机选择两个不相等的质数p和q。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step2-计算p和q的乘积n"><span class="nav-number">3.2.</span> <span class="nav-text">step2:计算p和q的乘积n</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step3-计算n的欧拉函数φ-n"><span class="nav-number">3.3.</span> <span class="nav-text">step3:计算n的欧拉函数φ(n)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step4-随机选择一个整数e，条件是1-lt-e-lt-φ-n-，且e与φ-n-互质"><span class="nav-number">3.4.</span> <span class="nav-text">step4:随机选择一个整数e，条件是1&lt; e &lt; φ(n)，且e与φ(n) 互质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step5"><span class="nav-number">3.5.</span> <span class="nav-text">step5:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step6-将n和e封装成公钥，n和d封装成私钥。"><span class="nav-number">3.6.</span> <span class="nav-text">step6:将n和e封装成公钥，n和d封装成私钥。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step7-RSA算法的可靠性"><span class="nav-number">3.7.</span> <span class="nav-text">step7:RSA算法的可靠性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step8-加密和解密"><span class="nav-number">3.8.</span> <span class="nav-text">step8:加密和解密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step9-私钥解密的证明"><span class="nav-number">3.9.</span> <span class="nav-text">step9:私钥解密的证明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摘录"><span class="nav-number">3.10.</span> <span class="nav-text">摘录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sign-bman"><span class="nav-number">3.11.</span> <span class="nav-text">sign:bman</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-desktop"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhifeng</span>
+</div>
+
+<!--
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+-->
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
