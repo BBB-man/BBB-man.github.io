@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;一花一世界，一叶一菩提；你眼中的我眼中的世界，并非我眼中的你眼中的世界。每个人能从外界得到的信息都是一样的，但是能领悟多少，就见仁见智了。 Introduction to Redis&amp;emsp;&amp;emsp;Redis is completely open source free, to comply with BSD protocol, and is a high-perf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redisの学无止境">
+<meta property="og:url" content="http://yoursite.com/2018/02/12/redisの学无止境/index.html">
+<meta property="og:site_name" content="Limbo">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;一花一世界，一叶一菩提；你眼中的我眼中的世界，并非我眼中的你眼中的世界。每个人能从外界得到的信息都是一样的，但是能领悟多少，就见仁见智了。 Introduction to Redis&amp;emsp;&amp;emsp;Redis is completely open source free, to comply with BSD protocol, and is a high-perf">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-12T09:24:44.441Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redisの学无止境">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;一花一世界，一叶一菩提；你眼中的我眼中的世界，并非我眼中的你眼中的世界。每个人能从外界得到的信息都是一样的，但是能领悟多少，就见仁见智了。 Introduction to Redis&amp;emsp;&amp;emsp;Redis is completely open source free, to comply with BSD protocol, and is a high-perf">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/12/redisの学无止境/"/>
+
+
+
+
+
+  <title>redisの学无止境 | Limbo</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Limbo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">朝闻道，夕可死</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/LianJie/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            书签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/12/redisの学无止境/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhifeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Limbo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">redisの学无止境</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-12T10:22:53+08:00">
+                2018-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;一花一世界，一叶一菩提；你眼中的我眼中的世界，并非我眼中的你眼中的世界。每个人能从外界得到的信息都是一样的，但是能领悟多少，就见仁见智了。</p>
+<h2 id="Introduction-to-Redis"><a href="#Introduction-to-Redis" class="headerlink" title="Introduction to Redis"></a>Introduction to Redis</h2><p>&emsp;&emsp;Redis is completely open source free, to comply with BSD protocol, and is a high-performance <strong>key-value</strong> database.</p>
+<h3 id="There-are-3-characteristics-of-Redis"><a href="#There-are-3-characteristics-of-Redis" class="headerlink" title="There are 3 characteristics of Redis:"></a>There are 3 characteristics of Redis:</h3><p>1.Redis support data persistence, you can save the data in memery of the disk, restart it can be reloaded simultaneously.<br>2.Redis not only supports key-value types of the data, but also provide storage for data structures such as list, set, zset, hash.<br>3.Redis supports data backup, that is, master-slave mode data backup.</p>
+<h3 id="Advantages"><a href="#Advantages" class="headerlink" title="Advantages"></a>Advantages</h3><ul>
+<li>High performance, writing speed 11000 IO/s, reading speed 81000 IO/s.</li>
+<li>Rich data types - Redis supports String, Lists, Sets, Hashes and Order Sets for binary cases.</li>
+<li>Atoms - All Redis operations are atomic, meaning either successful execution or failure is not performed at all. A single opertation is atomic. Multiple oerations also support transactions, atomicity wrapped by MULTI and EXEC instructions.</li>
+<li>Rich Features - Redis alse supports features such as publish / subscribe, notifications, key expiration, and more.</li>
+</ul>
+<h3 id="difference"><a href="#difference" class="headerlink" title="difference"></a>difference</h3><ul>
+<li>Redis has more complex data structures, meanwhile its atomic operations on them, an evolutionary path that is different from other databases. Redis data types are based on the basic data structure while transparent to programmers, without extra abstraction.</li>
+<li>Running Redis can be persisted in memory on disk, you have to think about the space of the disk when you use Redis to I/O data with high-speed and different data types, because the amount of data can not be larger than the amount of hardware memory. Another benifit of having an in-memory database is that it is much easier to work in memory than same complex data structure on disk. so that Redis can do a lot of things with high internal complexity. At the same time, they are compact an appendable in terms of disk format cause of they do not require random access.</li>
+</ul>
+<h2 id="Install-Redis"><a href="#Install-Redis" class="headerlink" title="Install Redis"></a>Install Redis</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows:"></a>Windows:</h3><p><strong>Source:</strong> <a href="https://github.com/MSOpenTech/redis/releases" target="_blank" rel="noopener">https://github.com/MSOpenTech/redis/releases</a><br>1.Download zip whatever you need, and unzip the X64/X86 zip to disk(C:) or wherever you want, and rename the filename with ‘redis’.<br>2.Open a command window, using command ‘cd’ to change the catalogue in “C:\redis\” and run command “redis-server.exe redis.windows.conf”, then you can enter redis interface.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;$ <span class="built_in">cd</span> C:\redis\</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;$ redis-server.exe redis.windows.conf</span><br></pre></td></tr></table></figure></p>
+<p>3.Open a new cmd window(<strong>do not close the old one</strong>), execute next command:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;$ redis-cli.exe -h 127.0.0.1 -p 6379</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;$ <span class="built_in">set</span> myKey abc</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;$ get myKey</span><br></pre></td></tr></table></figure></p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux:"></a>Linux:</h3><p><strong>Source:</strong> <a href="http://redis.io/download" target="_blank" rel="noopener">http://redis.io/download</a><br><strong>install redis:</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://download.redis.io/releases/redis-xxx.tar.gz      <span class="comment"># xxx=version</span></span><br><span class="line"></span><br><span class="line">$ tar xzf redis-xxx.tar.gz</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span> redis-xxx</span><br><span class="line"></span><br><span class="line">$ make</span><br></pre></td></tr></table></figure></p>
+<p>After ‘make’ redis-xxx, then we need to start up services ‘redis-server’ and ‘redis-cli’ that in file(‘src’).<br><strong>Start up ‘redis-server’</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> src</span><br><span class="line">$ ./redis-server</span><br></pre></td></tr></table></figure></p>
+<p><strong>Start up ‘redis-cli’</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> src</span><br><span class="line">$ ./redis-cli</span><br></pre></td></tr></table></figure></p>
+<p>File “redis.conf” is a default allocation. we can config it when we need it. After start up Server and Client, now shall we test the redis. For example:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> src</span><br><span class="line">$ ./redis-cli</span><br><span class="line">redis&gt; <span class="built_in">set</span> foo bar</span><br><span class="line">OK</span><br><span class="line">redis&gt; get foo</span><br><span class="line"><span class="string">"bar"</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu:"></a>Ubuntu:</h3><p>We can install redis in Ubuntu system like these:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install redis-server</span><br></pre></td></tr></table></figure></p>
+<p><strong>start up redis</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ redis-server</span><br></pre></td></tr></table></figure></p>
+<p><strong>check if it is really started</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli</span><br></pre></td></tr></table></figure></p>
+<p><strong>the above commannd opens the following terminal:</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>now we can ping sth</strong></p>
+<h3 id="Mac"><a href="#Mac" class="headerlink" title="Mac"></a>Mac</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.Downlaod official version (http://redis.io )</span><br><span class="line">2.sudo mv /usr/<span class="built_in">local</span>/</span><br><span class="line">3.sudo tar -zxf redis-xxx.tar</span><br><span class="line">4.Enter the catalogue and untar the file <span class="string">"redis-xxx.tar"</span></span><br><span class="line">5.sudo make <span class="built_in">test</span></span><br><span class="line">6.sudo make install</span><br></pre></td></tr></table></figure>
+<h2 id="Redis-commands"><a href="#Redis-commands" class="headerlink" title="Redis commands"></a>Redis commands</h2><p>We input the command to redis-cli(Client)</p>
+<h3 id="Basic-syntax-Client"><a href="#Basic-syntax-Client" class="headerlink" title="Basic syntax(Client)"></a>Basic syntax(Client)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli</span><br></pre></td></tr></table></figure>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli</span><br><span class="line">redis 127.0.0.1:6379&gt; </span><br><span class="line">redis 127.0.0.1:6379&gt; ping</span><br><span class="line">...</span><br><span class="line">ping</span><br></pre></td></tr></table></figure>
+<h3 id="Basic-syntax-Server"><a href="#Basic-syntax-Server" class="headerlink" title="Basic syntax(Server)"></a>Basic syntax(Server)</h3><p>login to Server</p>
+<pre><code class="bash">$ redis-cli -h host -p port -a password
+</code></pre>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://www.runoob.com/redis/" target="_blank" rel="noopener">http://www.runoob.com/redis/</a><br><a href="http://redis.io/commands" target="_blank" rel="noopener">http://redis.io/commands</a></p>
+<h3 id="sign-bman"><a href="#sign-bman" class="headerlink" title="sign bman"></a>sign bman</h3>
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢浏览-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/11/Python-APScheduler任务调度框架简介/" rel="next" title="Python APScheduler任务调度框架简介">
+                <i class="fa fa-chevron-left"></i> Python APScheduler任务调度框架简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="zhifeng" />
+          <p class="site-author-name" itemprop="name">zhifeng</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/BBB-man" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/p/1005056301926780/home?from=page_100505&mod=TAB&is_all=1#place" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://thief.one/" title="nmask's_blog" target="_blank">nmask's_blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.baidu.com/" title="baidu" target="_blank">baidu</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction-to-Redis"><span class="nav-number">1.</span> <span class="nav-text">Introduction to Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#There-are-3-characteristics-of-Redis"><span class="nav-number">1.1.</span> <span class="nav-text">There are 3 characteristics of Redis:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Advantages"><span class="nav-number">1.2.</span> <span class="nav-text">Advantages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#difference"><span class="nav-number">1.3.</span> <span class="nav-text">difference</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-Redis"><span class="nav-number">2.</span> <span class="nav-text">Install Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows"><span class="nav-number">2.1.</span> <span class="nav-text">Windows:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux"><span class="nav-number">2.2.</span> <span class="nav-text">Linux:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ubuntu"><span class="nav-number">2.3.</span> <span class="nav-text">Ubuntu:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac"><span class="nav-number">2.4.</span> <span class="nav-text">Mac</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-commands"><span class="nav-number">3.</span> <span class="nav-text">Redis commands</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic-syntax-Client"><span class="nav-number">3.1.</span> <span class="nav-text">Basic syntax(Client)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Example"><span class="nav-number">3.1.1.</span> <span class="nav-text">Example</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic-syntax-Server"><span class="nav-number">3.2.</span> <span class="nav-text">Basic syntax(Server)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">4.</span> <span class="nav-text">Reference</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sign-bman"><span class="nav-number">4.1.</span> <span class="nav-text">sign bman</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-desktop"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhifeng</span>
+</div>
+
+<!--
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+-->
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
