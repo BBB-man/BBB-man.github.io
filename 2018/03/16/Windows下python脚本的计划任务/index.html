@@ -94,19 +94,26 @@
 
 
 
-<meta name="description" content="漏洞发布时间：22-9-2016 OCSP状态请求扩展跨内存边界增长(CVE-2016-6304)安全等级: 高危恶意的客户端可以发送过大的OCSP状态请求延期。如果该客户端不断请求重新谈判，发送一个大的 OCSP 状态请求每延长一次，那么就会有无限的内存增长在服务器上。这最终将导致通过内存耗尽的拒绝服务攻击。这种攻击在使用默认配置的服务器上很容易执行，即使他们不支持 OCSP。建立使用”无 oc">
+<meta name="description" content="“世界上最聪明的人永远是最懒的人”—-没办法，谁让自己有一颗偷懒的心，只能将一些脚本自动化，从而节省人工，提高效率。  前期环境Windows将python脚本封装成.exe程序/.bat文件 封装脚本这里我简单介绍下如何将python脚本封装成.exe。其实python提供了很多强大的库供我们使用，其中pyinstaller库就是用来生成.exe文件的。 安装pip install pyinst">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenSSL(CVE-2016-6304)">
-<meta property="og:url" content="http://yoursite.com/2016/09/23/OpenSSL-CVE-2016-6304/index.html">
+<meta property="og:title" content="Windows下python脚本的计划任务">
+<meta property="og:url" content="http://yoursite.com/2018/03/16/Windows下python脚本的计划任务/index.html">
 <meta property="og:site_name" content="Limbo">
-<meta property="og:description" content="漏洞发布时间：22-9-2016 OCSP状态请求扩展跨内存边界增长(CVE-2016-6304)安全等级: 高危恶意的客户端可以发送过大的OCSP状态请求延期。如果该客户端不断请求重新谈判，发送一个大的 OCSP 状态请求每延长一次，那么就会有无限的内存增长在服务器上。这最终将导致通过内存耗尽的拒绝服务攻击。这种攻击在使用默认配置的服务器上很容易执行，即使他们不支持 OCSP。建立使用”无 oc">
+<meta property="og:description" content="“世界上最聪明的人永远是最懒的人”—-没办法，谁让自己有一颗偷懒的心，只能将一些脚本自动化，从而节省人工，提高效率。  前期环境Windows将python脚本封装成.exe程序/.bat文件 封装脚本这里我简单介绍下如何将python脚本封装成.exe。其实python提供了很多强大的库供我们使用，其中pyinstaller库就是用来生成.exe文件的。 安装pip install pyinst">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/upload_image/logo.jpg">
-<meta property="og:updated_time" content="2018-02-02T02:59:21.962Z">
+<meta property="og:image" content="http://yoursite.com/upload_image/plan_task/1.png">
+<meta property="og:image" content="http://yoursite.com/upload_image/plan_task/2.png">
+<meta property="og:image" content="http://yoursite.com/upload_image/plan_task/3.png">
+<meta property="og:image" content="http://yoursite.com/upload_image/plan_task/4.png">
+<meta property="og:image" content="http://yoursite.com/upload_image/plan_task/5.png">
+<meta property="og:image" content="http://yoursite.com/upload_image/plan_task/6.png">
+<meta property="og:image" content="http://yoursite.com/upload_image/plan_task/7.png">
+<meta property="og:image" content="http://yoursite.com/upload_image/plan_task/8.png">
+<meta property="og:updated_time" content="2018-03-16T04:01:36.625Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OpenSSL(CVE-2016-6304)">
-<meta name="twitter:description" content="漏洞发布时间：22-9-2016 OCSP状态请求扩展跨内存边界增长(CVE-2016-6304)安全等级: 高危恶意的客户端可以发送过大的OCSP状态请求延期。如果该客户端不断请求重新谈判，发送一个大的 OCSP 状态请求每延长一次，那么就会有无限的内存增长在服务器上。这最终将导致通过内存耗尽的拒绝服务攻击。这种攻击在使用默认配置的服务器上很容易执行，即使他们不支持 OCSP。建立使用”无 oc">
-<meta name="twitter:image" content="http://yoursite.com/upload_image/logo.jpg">
+<meta name="twitter:title" content="Windows下python脚本的计划任务">
+<meta name="twitter:description" content="“世界上最聪明的人永远是最懒的人”—-没办法，谁让自己有一颗偷懒的心，只能将一些脚本自动化，从而节省人工，提高效率。  前期环境Windows将python脚本封装成.exe程序/.bat文件 封装脚本这里我简单介绍下如何将python脚本封装成.exe。其实python提供了很多强大的库供我们使用，其中pyinstaller库就是用来生成.exe文件的。 安装pip install pyinst">
+<meta name="twitter:image" content="http://yoursite.com/upload_image/plan_task/1.png">
 
 
 
@@ -134,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/09/23/OpenSSL-CVE-2016-6304/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/16/Windows下python脚本的计划任务/"/>
 
 
 
 
 
-  <title>OpenSSL(CVE-2016-6304) | Limbo</title>
+  <title>Windows下python脚本的计划任务 | Limbo</title>
   
 
 
@@ -269,7 +276,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/23/OpenSSL-CVE-2016-6304/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/16/Windows下python脚本的计划任务/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zhifeng">
@@ -286,7 +293,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">OpenSSL(CVE-2016-6304)</h1>
+          <h1 class="post-title" itemprop="name headline">Windows下python脚本的计划任务</h1>
         
 
         <div class="post-meta">
@@ -298,8 +305,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-23T09:30:06+08:00">
-                2016-09-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-16T11:13:14+08:00">
+                2018-03-16
               </time>
             
 
@@ -333,12 +340,22 @@
       
 
       
-        <h2 id="漏洞发布时间：22-9-2016"><a href="#漏洞发布时间：22-9-2016" class="headerlink" title="漏洞发布时间：22-9-2016"></a>漏洞发布时间：22-9-2016</h2><p><img src="/upload_image/logo.jpg" alt="Alt text"></p>
-<h3 id="OCSP状态请求扩展跨内存边界增长-CVE-2016-6304"><a href="#OCSP状态请求扩展跨内存边界增长-CVE-2016-6304" class="headerlink" title="OCSP状态请求扩展跨内存边界增长(CVE-2016-6304)"></a>OCSP状态请求扩展跨内存边界增长(CVE-2016-6304)</h3><p>安全等级: 高危<br>恶意的客户端可以发送过大的OCSP状态请求延期。如果该客户端不断请求重新谈判，发送一个大的 OCSP 状态请求每延长一次，那么<br>就会有无限的内存增长在服务器上。这最终将导致通过内存耗尽的拒绝服务攻击。这种攻击在使用默认配置的服务器上很容易执行，<br>即使他们不支持 OCSP。建立使用”无 ocsp”生成时间选项不会受到影响。</p>
-<p>Servers using OpenSSL versions prior to 1.0.1g are not vulnerable in a default configuration, instead only if an application explicitly enables OCSP stapling support.</p>
-<p>OpenSSL 1.1.0 应该升级到 1.1.0a<br>OpenSSL 1.0.2 应该升级到 1.0.2i<br>OpenSSL 1.0.1 应该升级到 1.0.1u</p>
-<h3 id="SSL-peek-hang-on-empty-record-CVE-2016-6305"><a href="#SSL-peek-hang-on-empty-record-CVE-2016-6305" class="headerlink" title="SSL_peek() hang on empty record (CVE-2016-6305)"></a>SSL_peek() hang on empty record (CVE-2016-6305)</h3><p>===============================================<br>Severity: Moderate<br>OpenSSL 1.1.0 SSL/TLS will hang during a call to SSL_peek() if the peer sends an<br>empty record. This could be exploited by a malicious peer in a Denial Of Service<br>attack.<br>OpenSSL 1.1.0 users should upgrade to 1.1.0a<br>This issue was reported to OpenSSL on 10th September 2016 by Alex Gaynor. The<br>fix was developed by Matt Caswell of the OpenSSL development team.</p>
-<h2 id="摘录："><a href="#摘录：" class="headerlink" title="摘录："></a>摘录：</h2><p>more info<a href="http://toutiao.secjia.com/openssl-security-advisory-cve-2016-6304?from=groupmessage&amp;isappinstalled=0" target="_blank" rel="noopener">click1</a><br>more info<a href="http://bobao.360.cn/news/detail/3582.html" target="_blank" rel="noopener">click2</a><br>more info<a href="http://security.360.cn/cve/CVE-2016-6304/" target="_blank" rel="noopener">click3</a></p>
+        <p>“世界上最聪明的人永远是最懒的人”—-没办法，谁让自己有一颗偷懒的心，只能将一些脚本自动化，从而节省人工，提高效率。</p>
+<hr>
+<h2 id="前期环境"><a href="#前期环境" class="headerlink" title="前期环境"></a>前期环境</h2><p>Windows<br>将python脚本封装成.exe程序/.bat文件</p>
+<h2 id="封装脚本"><a href="#封装脚本" class="headerlink" title="封装脚本"></a>封装脚本</h2><p>这里我简单介绍下如何将python脚本封装成.exe。其实python提供了很多强大的库供我们使用，其中pyinstaller库就是用来生成.exe文件的。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>pip install pyinstaller</p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>进入你的python目录:<br>C:/python27/Scripts/pyinstaller.exe -F ./yours.py     #封装yours.py<br>生成的yours.exe在C:/python27/Scripts/dist目录下</p>
+<p>注意：打包的程序不能在中文路径下运行，可能会报错</p>
+<h2 id="配置计划任务"><a href="#配置计划任务" class="headerlink" title="配置计划任务"></a>配置计划任务</h2><h3 id="1-打开控制面板–管理工具–任务计划程序"><a href="#1-打开控制面板–管理工具–任务计划程序" class="headerlink" title="1 打开控制面板–管理工具–任务计划程序"></a>1 打开控制面板–管理工具–任务计划程序</h3><p><img src="/upload_image/plan_task/1.png" alt="1"><br><img src="/upload_image/plan_task/2.png" alt="2"></p>
+<h3 id="2-创建任务"><a href="#2-创建任务" class="headerlink" title="2 创建任务"></a>2 创建任务</h3><p><img src="/upload_image/plan_task/3.png" alt="3"></p>
+<h3 id="3-设置常规项（按需求填写）"><a href="#3-设置常规项（按需求填写）" class="headerlink" title="3 设置常规项（按需求填写）"></a>3 设置常规项（按需求填写）</h3><p><img src="/upload_image/plan_task/4.png" alt="4"></p>
+<h3 id="4-触发器，新建，设置时间"><a href="#4-触发器，新建，设置时间" class="headerlink" title="4 触发器，新建，设置时间"></a>4 触发器，新建，设置时间</h3><p><img src="/upload_image/plan_task/5.png" alt="5"></p>
+<h3 id="5-操作"><a href="#5-操作" class="headerlink" title="5 操作"></a>5 操作</h3><p><img src="/upload_image/plan_task/6.png" alt="6"></p>
+<h4 id="操作：选取启动程序"><a href="#操作：选取启动程序" class="headerlink" title="操作：选取启动程序"></a>操作：选取启动程序</h4><h4 id="程序或脚本：选择封装好的exe程序"><a href="#程序或脚本：选择封装好的exe程序" class="headerlink" title="程序或脚本：选择封装好的exe程序"></a>程序或脚本：选择封装好的exe程序</h4><h4 id="添加参数：不填，如果要填写，正常情况是如果运行-py的脚本，那么这里要写成脚本的绝对路径，同时上面的“程序或脚本”要改成python-exe-但是用py脚本会报错，暂时无法解决。"><a href="#添加参数：不填，如果要填写，正常情况是如果运行-py的脚本，那么这里要写成脚本的绝对路径，同时上面的“程序或脚本”要改成python-exe-但是用py脚本会报错，暂时无法解决。" class="headerlink" title="添加参数：不填，如果要填写，正常情况是如果运行.py的脚本，那么这里要写成脚本的绝对路径，同时上面的“程序或脚本”要改成python.exe;但是用py脚本会报错，暂时无法解决。"></a>添加参数：不填，如果要填写，正常情况是如果运行.py的脚本，那么这里要写成脚本的绝对路径，同时上面的“程序或脚本”要改成python.exe;但是用py脚本会报错，暂时无法解决。</h4><h4 id="起始于：这里是指“程序或脚本”的绝对目录"><a href="#起始于：这里是指“程序或脚本”的绝对目录" class="headerlink" title="起始于：这里是指“程序或脚本”的绝对目录"></a>起始于：这里是指“程序或脚本”的绝对目录</h4><h3 id="条件：按需求写"><a href="#条件：按需求写" class="headerlink" title="条件：按需求写"></a>条件：按需求写</h3><p><img src="/upload_image/plan_task/7.png" alt="7"></p>
+<h3 id="设置：按需求写"><a href="#设置：按需求写" class="headerlink" title="设置：按需求写"></a>设置：按需求写</h3><p><img src="/upload_image/plan_task/8.png" alt="8"></p>
+<p>sign bman</p>
+<hr>
 
       
     </div>
@@ -385,8 +402,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/22/my-new-post/" rel="next" title="My New Post">
-                <i class="fa fa-chevron-left"></i> My New Post
+              <a href="/2018/03/02/IntelliJ-IDEA-创建web项目教程/" rel="next" title="IntelliJ IDEA 创建web项目教程">
+                <i class="fa fa-chevron-left"></i> IntelliJ IDEA 创建web项目教程
               </a>
             
           </div>
@@ -394,10 +411,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/27/python-自定义函数/" rel="prev" title="python--自定义函数">
-                python--自定义函数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -547,7 +560,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞发布时间：22-9-2016"><span class="nav-number">1.</span> <span class="nav-text">漏洞发布时间：22-9-2016</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OCSP状态请求扩展跨内存边界增长-CVE-2016-6304"><span class="nav-number">1.1.</span> <span class="nav-text">OCSP状态请求扩展跨内存边界增长(CVE-2016-6304)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSL-peek-hang-on-empty-record-CVE-2016-6305"><span class="nav-number">1.2.</span> <span class="nav-text">SSL_peek() hang on empty record (CVE-2016-6305)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#摘录："><span class="nav-number">2.</span> <span class="nav-text">摘录：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前期环境"><span class="nav-number">1.</span> <span class="nav-text">前期环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装脚本"><span class="nav-number">2.</span> <span class="nav-text">封装脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用方法"><span class="nav-number">2.2.</span> <span class="nav-text">使用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置计划任务"><span class="nav-number">3.</span> <span class="nav-text">配置计划任务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-打开控制面板–管理工具–任务计划程序"><span class="nav-number">3.1.</span> <span class="nav-text">1 打开控制面板–管理工具–任务计划程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-创建任务"><span class="nav-number">3.2.</span> <span class="nav-text">2 创建任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-设置常规项（按需求填写）"><span class="nav-number">3.3.</span> <span class="nav-text">3 设置常规项（按需求填写）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-触发器，新建，设置时间"><span class="nav-number">3.4.</span> <span class="nav-text">4 触发器，新建，设置时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-操作"><span class="nav-number">3.5.</span> <span class="nav-text">5 操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#操作：选取启动程序"><span class="nav-number">3.5.1.</span> <span class="nav-text">操作：选取启动程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序或脚本：选择封装好的exe程序"><span class="nav-number">3.5.2.</span> <span class="nav-text">程序或脚本：选择封装好的exe程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加参数：不填，如果要填写，正常情况是如果运行-py的脚本，那么这里要写成脚本的绝对路径，同时上面的“程序或脚本”要改成python-exe-但是用py脚本会报错，暂时无法解决。"><span class="nav-number">3.5.3.</span> <span class="nav-text">添加参数：不填，如果要填写，正常情况是如果运行.py的脚本，那么这里要写成脚本的绝对路径，同时上面的“程序或脚本”要改成python.exe;但是用py脚本会报错，暂时无法解决。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#起始于：这里是指“程序或脚本”的绝对目录"><span class="nav-number">3.5.4.</span> <span class="nav-text">起始于：这里是指“程序或脚本”的绝对目录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件：按需求写"><span class="nav-number">3.6.</span> <span class="nav-text">条件：按需求写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置：按需求写"><span class="nav-number">3.7.</span> <span class="nav-text">设置：按需求写</span></a></li></ol></li></ol></div>
             
 
           </div>
